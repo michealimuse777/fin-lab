@@ -690,6 +690,22 @@ Detailed errors remain server-side. The app logs `application_error` for server-
 
 `403` means authentication worked but authorization failed.
 
+## Ubuntu Quick Setup
+
+After cloning the repository on Ubuntu, run:
+
+```bash
+bash scripts/setup-ubuntu.sh
+```
+
+The script installs the Ubuntu packages, creates `.env`, creates the MySQL database/user, writes the database settings, installs Composer dependencies, generates the app key, runs migrations/seeders, clears caches, and runs the test suite.
+
+Start the lab afterward with:
+
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
+```
+
 ## MySQL Setup
 
 The app expects:
