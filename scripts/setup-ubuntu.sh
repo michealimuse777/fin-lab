@@ -35,6 +35,7 @@ sudo apt-get install -y \
     composer \
     php8.4-cli \
     php8.4-mbstring \
+    php8.4-intl \
     php8.4-xml \
     php8.4-curl \
     php8.4-mysql \
@@ -48,6 +49,12 @@ PHP_VERSION_ID="$(php -r 'echo PHP_VERSION_ID;')"
 if [ "$PHP_VERSION_ID" -lt 80400 ]; then
     echo "PHP 8.4 or newer is required by this setup. Current version: $(php -r 'echo PHP_VERSION;')"
     echo "Install PHP 8.4+, then run this script again."
+    exit 1
+fi
+
+if ! php -r 'exit(extension_loaded("intl") ? 0 : 1);'; then
+    echo "PHP intl extension is required but is not loaded."
+    echo "Run: sudo apt-get install -y php8.4-intl"
     exit 1
 fi
 
