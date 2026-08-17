@@ -9,7 +9,7 @@ if ! command -v apt-get >/dev/null 2>&1; then
     exit 1
 fi
 
-echo "FinBank Ubuntu setup: PHP 8.3, Composer, MySQL, .env, database."
+echo "FinBank Ubuntu setup: PHP 8.4, Composer, MySQL, .env, database."
 echo "This script does not install or configure Wazuh."
 
 echo "Preparing Ubuntu package sources..."
@@ -20,8 +20,8 @@ sudo apt-get install -y \
     lsb-release \
     apt-transport-https
 
-if ! apt-cache show php8.3-cli >/dev/null 2>&1; then
-    echo "Adding PHP 8.3 package source..."
+if ! apt-cache show php8.4-cli >/dev/null 2>&1; then
+    echo "Adding PHP 8.4 package source..."
     sudo add-apt-repository ppa:ondrej/php -y
     sudo apt-get update
 fi
@@ -33,21 +33,21 @@ sudo apt-get install -y \
     curl \
     mysql-server \
     composer \
-    php8.3-cli \
-    php8.3-mbstring \
-    php8.3-xml \
-    php8.3-curl \
-    php8.3-mysql \
-    php8.3-zip \
-    php8.3-bcmath
+    php8.4-cli \
+    php8.4-mbstring \
+    php8.4-xml \
+    php8.4-curl \
+    php8.4-mysql \
+    php8.4-zip \
+    php8.4-bcmath
 
-sudo update-alternatives --install /usr/bin/php php /usr/bin/php8.3 83
-sudo update-alternatives --set php /usr/bin/php8.3
+sudo update-alternatives --install /usr/bin/php php /usr/bin/php8.4 84
+sudo update-alternatives --set php /usr/bin/php8.4
 
 PHP_VERSION_ID="$(php -r 'echo PHP_VERSION_ID;')"
-if [ "$PHP_VERSION_ID" -lt 80300 ]; then
-    echo "PHP 8.3 or newer is required. Current version: $(php -r 'echo PHP_VERSION;')"
-    echo "Use Ubuntu 24.04+ or install PHP 8.3+, then run this script again."
+if [ "$PHP_VERSION_ID" -lt 80400 ]; then
+    echo "PHP 8.4 or newer is required by this setup. Current version: $(php -r 'echo PHP_VERSION;')"
+    echo "Install PHP 8.4+, then run this script again."
     exit 1
 fi
 

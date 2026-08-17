@@ -698,7 +698,7 @@ After cloning the repository on Ubuntu, run:
 bash scripts/setup-ubuntu.sh
 ```
 
-The script installs PHP 8.3, Composer, and MySQL, creates `.env`, creates the MySQL database/user, writes the database settings, installs Composer dependencies, generates the app key, runs migrations/seeders, and clears caches. It does not install or configure Wazuh.
+The script installs PHP 8.4, Composer, and MySQL, creates `.env`, creates the MySQL database/user, writes the database settings, installs Composer dependencies, generates the app key, runs migrations/seeders, and clears caches. It does not install or configure Wazuh.
 
 Optional verification afterward:
 
