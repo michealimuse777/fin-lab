@@ -9,6 +9,9 @@ if ! command -v apt-get >/dev/null 2>&1; then
     exit 1
 fi
 
+echo "FinBank Ubuntu setup: PHP 8.3, Composer, MySQL, .env, database."
+echo "This script does not install or configure Wazuh."
+
 echo "Preparing Ubuntu package sources..."
 sudo apt-get update
 sudo apt-get install -y \
@@ -108,15 +111,15 @@ php artisan key:generate --force
 php artisan migrate --seed --force
 php artisan optimize:clear
 
-echo "Running test suite..."
-php artisan test
-
 cat <<'NEXT'
 
 Ubuntu setup complete.
 
 Start the FinBank lab with:
 php artisan serve --host=0.0.0.0 --port=8000
+
+Optional check:
+php artisan test
 
 From Windows, browse to:
 http://<ubuntu-vm-ip>:8000
