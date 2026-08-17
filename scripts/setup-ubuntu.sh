@@ -9,21 +9,37 @@ if ! command -v apt-get >/dev/null 2>&1; then
     exit 1
 fi
 
-echo "Installing Ubuntu packages..."
+echo "Preparing Ubuntu package sources..."
 sudo apt-get update
+sudo apt-get install -y \
+    software-properties-common \
+    ca-certificates \
+    lsb-release \
+    apt-transport-https
+
+if ! apt-cache show php8.3-cli >/dev/null 2>&1; then
+    echo "Adding PHP 8.3 package source..."
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt-get update
+fi
+
+echo "Installing Ubuntu packages..."
 sudo apt-get install -y \
     git \
     unzip \
     curl \
     mysql-server \
     composer \
-    php-cli \
-    php-mbstring \
-    php-xml \
-    php-curl \
-    php-mysql \
-    php-zip \
-    php-bcmath
+    php8.3-cli \
+    php8.3-mbstring \
+    php8.3-xml \
+    php8.3-curl \
+    php8.3-mysql \
+    php8.3-zip \
+    php8.3-bcmath
+
+sudo update-alternatives --install /usr/bin/php php /usr/bin/php8.3 83
+sudo update-alternatives --set php /usr/bin/php8.3
 
 PHP_VERSION_ID="$(php -r 'echo PHP_VERSION_ID;')"
 if [ "$PHP_VERSION_ID" -lt 80300 ]; then
